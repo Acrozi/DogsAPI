@@ -30,31 +30,30 @@ namespace DogsApi
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // Configure error handling for production
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        // Configure error handling for production
+        app.UseExceptionHandler("/Home/Error");
+        app.UseHsts();
+    }
 
-            app.UseHttpsRedirection();
+    // Apply CORS policy
+    app.UseCors("AllowAnyOrigin");
 
-            app.UseCors("AllowAnyOrigin");
+    app.UseRouting();
 
-            app.UseRouting();
+    app.UseAuthorization();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+}
     }
 }
