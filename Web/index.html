@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dogs</title>
+    <title>Dogs API Interface</title>
 </head>
 <body>
-    <h1>Dogs list</h1>
+    <h1>Dogs API Interface</h1>
+
+    <h2>Get All Dogs</h2>
+    <button id="getAllDogsBtn">Get All Dogs</button>
+    <div id="allDogs"></div>
+
+    <h2>Add a Dog</h2>
+    <input type="text" id="dogName" placeholder="Enter dog name">
+    <input type="number" id="dogAge" placeholder="Enter dog age">
+    <button id="addDogBtn">Add Dog</button>
+
+    <h2>Delete a Dog</h2>
+    <input type="number" id="deleteDogId" placeholder="Enter dog ID to delete">
+    <button id="deleteDogBtn">Delete Dog</button>
+
     <script src="app.js"></script>
 </body>
 </html>
