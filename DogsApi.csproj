@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="6.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
