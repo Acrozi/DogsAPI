@@ -19,41 +19,42 @@ namespace DogsApi
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAnyOrigin", builder =>
+                options.AddPolicy("AllowSpecificOrigins", builder =>
                 {
-                    builder.AllowAnyOrigin()
-                           .AllowAnyMethod()
-                           .AllowAnyHeader();
+                    builder
+                        .WithOrigins("http://dogsapi-env.eba-bnzwkjrp.eu-north-1.elasticbeanstalk.com/api/dogs")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
                 });
             });
 
             services.AddControllers();
         }
 
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-    }
-    else
-    {
-        // Configure error handling for production
-        app.UseExceptionHandler("/Home/Error");
-        app.UseHsts();
-    }
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                // Configure error handling for production
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
 
-    // Apply CORS policy
-    app.UseCors("AllowAnyOrigin");
+            // Apply CORS policy
+            app.UseCors("AllowSpecificOrigins");
 
-    app.UseRouting();
+            app.UseRouting();
 
-    app.UseAuthorization();
+            app.UseAuthorization();
 
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-    });
-}
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
     }
 }
