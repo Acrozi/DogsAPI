@@ -1,40 +1,25 @@
-name: Build and push to aws
+name: Deploy to AWS Elastic Beanstalk
 
 on:
   push:
     branches:
       - main
 
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with: 
-          dotnet-version: '6.0'
+    - name: Setup AWS Elastic Beanstalk
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-north-1
 
-      - name: Build project  
-        run: dotnet restore; dotnet publish -o site;
-
-      - name: create zip package
-        run: cd site; zip ../site.zip *;
-
-      - name: Deploy to aws EB
-        uses: einaregilsson/beanstalk-deploy@v21
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID}}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: DogsAPI
-          environment_name: DogsAPI-env
-          version_label: ${{ github.run_id }}
-          region: eu-north-1
-          deployment_package: site.zip
-
-
-#Trigger actions
+    - name: Deploy to Elastic Beanstalk
+      run: |
+        eb deploy your-environment-name
