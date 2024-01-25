@@ -15,46 +15,37 @@ namespace DogsApi
             Configuration = configuration;
         }
 
-        public void ConfigureServices(IServiceCollection services)
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAmplifyDomain", builder =>
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAnyOrigin", builder =>
-                {
-                    builder
-                        .AllowAnyOrigin()    // Allow requests from any origin
-                        .AllowAnyMethod()    // Allow any HTTP method (GET, POST, PUT, DELETE, etc.)
-                        .AllowAnyHeader();   // Allow any HTTP headers
-                });
-            });
+            builder
+                .WithOrigins("https://main.d1ry9mw1p5saxy.amplifyapp.com/")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+    });
 
-            services.AddControllers();
-        }
+    services.AddControllers();
+}
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // Configure error handling for production
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    // ...
 
-            // Apply CORS policy
-            app.UseCors("AllowAnyOrigin");
+    app.UseRouting();
 
-            app.UseRouting();
+    // Apply CORS policy
+    app.UseCors("AllowAmplifyDomain");
 
-            app.UseAuthorization();
+    app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+}
     }
 }
