@@ -22,7 +22,7 @@ namespace DogsApi
                 options.AddPolicy("AllowSpecificOrigins", builder =>
                 {
                     builder
-                        .WithOrigins("http://dogsapi-env.eba-bnzwkjrp.eu-north-1.elasticbeanstalk.com/api/dogs")
+                        .WithOrigins("https://dogsapi-env.eba-bnzwkjrp.eu-north-1.elasticbeanstalk.com/api/dogs", "78.68.57.174")
                         .AllowAnyMethod()
                         .AllowAnyHeader();
                 });
