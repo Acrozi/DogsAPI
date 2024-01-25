@@ -24,7 +24,8 @@ public void ConfigureServices(IServiceCollection services)
             builder
                 .WithOrigins("https://main.d1ry9mw1p5saxy.amplifyapp.com/")
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .AllowCredentials();
         });
     });
 
