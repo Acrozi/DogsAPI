@@ -19,12 +19,12 @@ namespace DogsApi
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowSpecificOrigins", builder =>
+                options.AddPolicy("AllowAnyOrigin", builder =>
                 {
                     builder
-                        .WithOrigins("https://dogsapi-env.eba-bnzwkjrp.eu-north-1.elasticbeanstalk.com/api/dogs", "78.68.57.174")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+                        .AllowAnyOrigin()    // Allow requests from any origin
+                        .AllowAnyMethod()    // Allow any HTTP method (GET, POST, PUT, DELETE, etc.)
+                        .AllowAnyHeader();   // Allow any HTTP headers
                 });
             });
 
@@ -45,7 +45,7 @@ namespace DogsApi
             }
 
             // Apply CORS policy
-            app.UseCors("AllowSpecificOrigins");
+            app.UseCors("AllowAnyOrigin");
 
             app.UseRouting();
 
